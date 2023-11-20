@@ -1,0 +1,54 @@
+﻿@page "/cutting-machines"
+@rendermode InteractiveServer
+@using LantekCodingChallenge.Models;
+
+<PageTitle>Lantek Coding Challenge</PageTitle>
+
+<h1>Cutting Machines</h1>
+
+<table class="table">
+    <colgroup>
+        <col class="col-md-4">
+        <col class="col-md-8">
+        <col class="col-md-2">
+    </colgroup>
+    <thead>
+        <tr>
+            <th>Select a cutting technology</th>
+            <th colspan="2">
+                <InputSelect class="form-control form-control form-control-sm" 
+                             @bind-Value="Resource"
+                             @bind-Value:after="UpdateModel">
+                    <option value="/api/cut">--</option>
+                    <option value="/api/cut/2">2D</option>
+                    <option value="/api/cut/3">3D</option>
+                </InputSelect>
+            </th>
+        </tr>
+        <tr>
+            <th>Name</th>
+            <th>Manufacturer</th>
+            <th>Cutting Technology</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null)
+        {
+            @foreach (CuttingMachine machine in Model)
+            {
+                <tr>
+                    <td>@machine.Name</td>
+                    <td>@machine.Manufacturer</td>
+                    <td>@(machine.Technology)D</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+@if (Model == null && !string.IsNullOrEmpty(ErrorMessage))
+{
+    <p class="mt-2 font-weight-bold font-italic text-danger">
+        @ErrorMessage
+    </p>
+}

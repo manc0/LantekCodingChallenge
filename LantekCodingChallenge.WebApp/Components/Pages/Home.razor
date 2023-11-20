@@ -1,0 +1,25 @@
+﻿@page "/"
+@rendermode InteractiveServer
+
+<PageTitle>Lantek Coding Challenge</PageTitle>
+
+<h1>API Authorization Settings</h1>
+
+<p class="fw-bold col-lg-5">
+    User Name
+    <input class="form-control" @bind-value="Authentication.UserName" />
+</p>
+<p class="fw-bold col-lg-5">
+    Password
+    <input class="form-control" type="password" @bind-value="Authentication.Password" />
+</p>
+
+@code {
+    [CascadingParameter(Name = "Authentication")]
+    private BasicAuth Authentication { get; set; } = null!;
+
+    protected override void OnInitialized()
+    {
+        Authentication.ValuesChanged += () => StateHasChanged();
+    }
+}
